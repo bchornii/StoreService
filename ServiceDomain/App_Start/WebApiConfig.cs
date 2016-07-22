@@ -16,13 +16,6 @@ namespace ServiceDomain
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            config.Routes.MapHttpRoute(
-                name: "CustomApi",
-                routeTemplate: "{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional,
-                                category = "GetAll" }
-            );
         }
     }
 }
