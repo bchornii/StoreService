@@ -2,7 +2,7 @@
 {
     public class Customer
     {
-        public int CustomerId2 { get; set; }
+        public int CustomerId { get; set; }
         public string CustomerName { get; set; }
     }
 }
