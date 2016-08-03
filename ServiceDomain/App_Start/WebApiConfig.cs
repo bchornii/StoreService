@@ -11,11 +11,12 @@ namespace ServiceDomain
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            // Convention routing
+            // config.Routes.MapHttpRoute(
+            //     name: "DefaultApi",
+            //     routeTemplate: "api/{controller}/{id}/{name}",
+            //     defaults: new { id = RouteParameter.Optional }
+            // );
         }
     }
 }
