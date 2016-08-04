@@ -27,13 +27,13 @@ namespace ServiceDomain.Controllers
         }
 
         [HttpGet]
-        [Route("{name}/{id}")]
+        [Route("{name}/{id:int:nonzero}")]
         public IHttpActionResult GetOrderById(string Name,int Id, double version = 1.5)
         {
             var order = _orders.FirstOrDefault(o => o.OrderId == Id);
             if (order == null)
             {
-                return NotFound();
+                //return NotFound();
             }
             return Ok(Id + "," + Name + "," + version);
         }

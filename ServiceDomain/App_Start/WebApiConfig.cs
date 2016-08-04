@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using ServiceDomain.RouteConstraints;
+using System.Web.Http;
+using System.Web.Http.Routing;
 
 namespace ServiceDomain
 {
@@ -9,14 +11,16 @@ namespace ServiceDomain
             // Web API configuration and services
 
             // Web API routes
-            config.MapHttpAttributeRoutes();
+            var constraintResolver = new DefaultInlineConstraintResolver();
+            constraintResolver.ConstraintMap.Add("nonzero", typeof(NonZeroConstraint));
+            config.MapHttpAttributeRoutes(constraintResolver);
 
             // Convention routing
             // config.Routes.MapHttpRoute(
             //     name: "DefaultApi",
             //     routeTemplate: "api/{controller}/{id}/{name}",
             //     defaults: new { id = RouteParameter.Optional }
-            // );
+            // );            
         }
     }
 }
