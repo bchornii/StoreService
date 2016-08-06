@@ -9,7 +9,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace ServiceDomain.Context
 {
-    public interface IBooksDbContext
+    public interface IBooksDbContext : IDisposable
     {
         IDbSet<Author> Authors { get; set; }
         IDbSet<Book> Books { get; set; }
@@ -27,12 +27,13 @@ namespace ServiceDomain.Context
 
         static BooksContext()
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<BooksContext>());
+            Database.SetInitializer<BooksContext>(new CreateDatabaseIfNotExists<BooksContext>());
         }
 
         public BooksContext() : base("Name=BooksDbConnection")
         {
             Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
         public BooksContext(string connectionString) : base(connectionString) { }        
     }

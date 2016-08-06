@@ -127,9 +127,15 @@
     <Compile Include="Context\ContextFactory.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Context\BooksContext.cs" />
-    <Compile Include="Migrations\201608042057101_Initial.cs" />
-    <Compile Include="Migrations\201608042057101_Initial.Designer.cs">
-      <DependentUpon>201608042057101_Initial.cs</DependentUpon>
+    <Compile Include="DTOs\BookDetailDto.cs" />
+    <Compile Include="DTOs\BookDto.cs" />
+    <Compile Include="Migrations\201608051900303_InitialCreate.cs" />
+    <Compile Include="Migrations\201608051900303_InitialCreate.Designer.cs">
+      <DependentUpon>201608051900303_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608051905252_Initial.cs" />
+    <Compile Include="Migrations\201608051905252_Initial.Designer.cs">
+      <DependentUpon>201608051905252_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
@@ -156,8 +162,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608042057101_Initial.resx">
-      <DependentUpon>201608042057101_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608051900303_InitialCreate.resx">
+      <DependentUpon>201608051900303_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608051905252_Initial.resx">
+      <DependentUpon>201608051905252_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

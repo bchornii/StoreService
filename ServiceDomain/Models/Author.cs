@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ServiceDomain.Models
 {
@@ -7,5 +8,11 @@ namespace ServiceDomain.Models
         public int AuthorId { get; set; }
         [Required]
         public string Name { get; set; }
+        public ICollection<Book> Books { get; set; }
+
+        public Author()
+        {
+            Books = new List<Book>();
+        }
     }
 }
