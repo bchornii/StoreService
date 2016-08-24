@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ServiceDomain.Controllers
 {
+    [RoutePrefix("api/orders")]
     public class OrdersController : ApiController
     {
         private readonly List<Order> _orders = new List<Order>
@@ -19,20 +20,22 @@ namespace ServiceDomain.Controllers
         };
 
         [HttpGet]
+        [Route("all")]
         public IHttpActionResult GetAll()
         {
             return Ok(_orders);
         }
 
         [HttpGet]
-        public IHttpActionResult GetOrderById(int Id)
+        [Route("{name}/{id:int:nonzero}")]
+        public IHttpActionResult GetOrderById(string Name,int Id, double version = 1.5)
         {
             var order = _orders.FirstOrDefault(o => o.OrderId == Id);
             if (order == null)
             {
-                return NotFound();
+                //return NotFound();
             }
-            return Ok(order);
+            return Ok(Id + "," + Name + "," + version);
         }
     }
 }
