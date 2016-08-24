@@ -2,7 +2,7 @@
 
 namespace ServiceDomain.DTOs
 {
-    public class BookDetailDto
+    public class GET_BookDetailDto
     {
         public string Title { get; set; }
         public string Genre { get; set; }

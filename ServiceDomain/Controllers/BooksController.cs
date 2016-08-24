@@ -1,5 +1,7 @@
 ﻿using ServiceDomain.Context;
 using ServiceDomain.DTOs;
+using ServiceDomain.Filters;
+using ServiceDomain.HttpActionResultFactory;
 using ServiceDomain.Models;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -22,7 +25,7 @@ namespace ServiceDomain.Controllers
             _factory = new DbContextFactory();
         }
 
-        private static readonly Expression<Func<Book, BookDto>> AsBookDto = x => new BookDto
+        private static readonly Expression<Func<Book, GET_BookDto>> AsBookDto = x => new GET_BookDto
         {
             Title = x.Title,
             Author = x.Author.Name,
@@ -31,7 +34,7 @@ namespace ServiceDomain.Controllers
 
         [HttpGet]
         [Route("all")]
-        public IEnumerable<BookDto> GetBooks()
+        public IEnumerable<GET_BookDto> GetBooks()
         {
             using(var context = _factory.CreateContext())
             {
@@ -39,7 +42,7 @@ namespace ServiceDomain.Controllers
                               .Join(context.Books,
                                     a => a.AuthorId,
                                     b => b.AuthorId,
-                                    (a, b) => new BookDto
+                                    (a, b) => new GET_BookDto
                                     {
                                         Author = a.Name,
                                         Genre = b.Genre,
@@ -54,7 +57,7 @@ namespace ServiceDomain.Controllers
         {
             using (var context = _factory.CreateContext())
             {
-                BookDto book = await context.Books.Include(b => b.Author)
+                GET_BookDto book = await context.Books.Include(b => b.Author)
                     .Where(b => b.BookId == id)
                     .Select(AsBookDto)
                     .FirstOrDefaultAsync();
@@ -67,6 +70,25 @@ namespace ServiceDomain.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("neg/{id:int}")]
+        public async Task<IHttpActionResult> GetBookNegotiation(int id)
+        {
+            using(var context = _factory.CreateContext())
+            {
+                var book = await context.Books.Include(b => b.Author)
+                                        .Where(b => b.BookId == id)
+                                        .Select(AsBookDto)
+                                        .FirstOrDefaultAsync();                                              
+
+                if (book == null)
+                {
+                    return NotFound();
+                }
+                return new CustomResult<GET_BookDto>(this, book);
+            }
+        }
+
         [Route("{id:int}/details")]
         public async Task<IHttpActionResult> GetBookDetail(int id)
         {
@@ -74,7 +96,7 @@ namespace ServiceDomain.Controllers
             {
                 var book = await context.Books
                                         .Where(b => b.AuthorId == id)
-                                        .Select(b => new BookDetailDto
+                                        .Select(b => new GET_BookDetailDto
                                         {
                                             Title = b.Title,
                                             Description = b.Description,
@@ -93,13 +115,13 @@ namespace ServiceDomain.Controllers
         }
 
         [Route("{genre}")]
-        public IEnumerable<BookDto> GetBooksByGenre(string genre)
+        public IEnumerable<GET_BookDto> GetBooksByGenre(string genre)
         {
             using(var context = _factory.CreateContext())
             {
                 return context.Books
                               .Where(b => b.Genre.Equals(genre,StringComparison.OrdinalIgnoreCase))
-                              .Select(b => new BookDto
+                              .Select(b => new GET_BookDto
                               {
                                   Author = b.Author.Name,
                                   Genre = b.Genre,
@@ -134,6 +156,30 @@ namespace ServiceDomain.Controllers
                               .ToList();
                 return Request.CreateResponse(HttpStatusCode.OK, books);
             }
+        }
+
+        [HttpPost]
+        [Route("upsert")]
+        [ValidateModel]
+        public async Task<IHttpActionResult> UpsertBook([FromBody] POST_BookDto book)
+        {
+            using(var contex = _factory.CreateContext())
+            {
+                var b = new Book
+                {
+                    BookId = book.BookId,
+                    Title = book.Title,
+                    Price = book.Price.Value,
+                    Genre = book.Genre,
+                    PublishDate = book.PublishDate.Value,
+                    Description = book.Description,
+                    AuthorId = book.AuthorId.Value
+                };
+                contex.Entry(b).State = (b.BookId != 0) ? 
+                    EntityState.Modified : EntityState.Added;
+                await contex.SaveChangesAsync();
+            }
+            return Ok();
         }
     }
 }
