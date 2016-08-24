@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data.Entity;
 using ServiceDomain.Models;
 using System.Threading.Tasks;
@@ -27,7 +24,7 @@ namespace ServiceDomain.Context
 
         static BooksContext()
         {
-            Database.SetInitializer<BooksContext>(new CreateDatabaseIfNotExists<BooksContext>());
+            Database.SetInitializer(new BookDbInitializer());
         }
 
         public BooksContext() : base("Name=BooksDbConnection")
@@ -35,6 +32,11 @@ namespace ServiceDomain.Context
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
         }
-        public BooksContext(string connectionString) : base(connectionString) { }        
+        public BooksContext(string connectionString) : base(connectionString) { }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+ 
+        }
     }
 }

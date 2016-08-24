@@ -1,35 +1,23 @@
-namespace ServiceDomain.Migrations
+﻿using ServiceDomain.Models;
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+
+namespace ServiceDomain.Context
 {
-    using Models;
-    using System;    
-    using System.Data.Entity.Migrations;    
-
-    internal sealed class Configuration : DbMigrationsConfiguration<ServiceDomain.Context.BooksContext>
+    public class BookDbInitializer : CreateDatabaseIfNotExists<BooksContext>
     {
-        public Configuration()
+        protected override void Seed(BooksContext context)
         {
-            AutomaticMigrationsEnabled = false;
-            ContextKey = "ServiceDomain.Context.BooksContext";
-        }
-
-        protected override void Seed(ServiceDomain.Context.BooksContext context)
-        {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-
-            // When in context is custom initializer then this method will not be called
-
             context.Authors.AddOrUpdate(new Author[] {
-                new Author() { AuthorId = 1, Name = "Ralls, Kim" },
+                new Author() { AuthorId = 1, Name = "Ralls, Kim22" },
                 new Author() { AuthorId = 2, Name = "Corets, Eva" },
                 new Author() { AuthorId = 3, Name = "Randall, Cynthia" },
                 new Author() { AuthorId = 4, Name = "Thurman, Paula" }
             });
 
             context.Books.AddOrUpdate(new Book[] {
-                new Book() { BookId = 1,  Title= "Midnight Rain", Genre = "Fantasyy1",
+                new Book() { BookId = 1,  Title= "Midnight Rain", Genre = "Comicss",
                 PublishDate = new DateTime(2000, 12, 16), AuthorId = 1, Description =
                 "A former architect battles an evil sorceress.", Price = 14.95M },
 
@@ -50,6 +38,8 @@ namespace ServiceDomain.Migrations
                     PublishDate = new DateTime(2000, 11, 02), AuthorId = 4, Description =
                     "A deep sea diver finds true love 20,000 leagues beneath the sea.", Price = 6.99M},
             });
+
+            base.Seed(context);
         }
     }
 }
