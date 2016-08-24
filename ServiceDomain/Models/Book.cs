@@ -15,6 +15,6 @@ namespace ServiceDomain.Models
         public string Description { get; set; }
         public int AuthorId { get; set; }
         [ForeignKey("AuthorId")]
-        public Author Author { get; set; }
+        public Author Author { get; set; }        
     }
 }

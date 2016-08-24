@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Serialization;
+using ServiceDomain.Filters;
 using ServiceDomain.RouteConstraints;
 using System.Web.Http;
 using System.Web.Http.Routing;
@@ -14,11 +15,14 @@ namespace ServiceDomain
             constraintResolver.ConstraintMap.Add("nonzero", typeof(NonZeroConstraint));
             config.MapHttpAttributeRoutes(constraintResolver);
 
-            // Serialization
+            // Web API serialization configuration
             var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             json.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.MicrosoftDateFormat;
             json.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
             json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            // Web API filters
+            config.Filters.Add(new ValidateModelAttribute());
 
             // Web API routes
 

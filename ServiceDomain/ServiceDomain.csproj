@@ -130,9 +130,44 @@
     <Compile Include="Context\BooksContext.cs" />
     <Compile Include="DTOs\BookDetailDto.cs" />
     <Compile Include="DTOs\BookDto.cs" />
+    <Compile Include="DTOs\POST_BookDto.cs" />
+    <Compile Include="Filters\ValidateModelFilter.cs" />
+    <Compile Include="HttpActionResultFactory\CustomResult.cs" />
     <Compile Include="Migrations\201608082112251_InitialCreate.cs" />
     <Compile Include="Migrations\201608082112251_InitialCreate.Designer.cs">
       <DependentUpon>201608082112251_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608241315479_AddBookAbstract.cs" />
+    <Compile Include="Migrations\201608241315479_AddBookAbstract.Designer.cs">
+      <DependentUpon>201608241315479_AddBookAbstract.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608241332331_DeleteBookAbstract.cs" />
+    <Compile Include="Migrations\201608241332331_DeleteBookAbstract.Designer.cs">
+      <DependentUpon>201608241332331_DeleteBookAbstract.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608241334368_AddAuthorAddress.cs" />
+    <Compile Include="Migrations\201608241334368_AddAuthorAddress.Designer.cs">
+      <DependentUpon>201608241334368_AddAuthorAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608241336171_AddAuthorCity.cs" />
+    <Compile Include="Migrations\201608241336171_AddAuthorCity.Designer.cs">
+      <DependentUpon>201608241336171_AddAuthorCity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608241342443_AddAuthorCountry.cs" />
+    <Compile Include="Migrations\201608241342443_AddAuthorCountry.Designer.cs">
+      <DependentUpon>201608241342443_AddAuthorCountry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608241344547_AddAuthorState.cs" />
+    <Compile Include="Migrations\201608241344547_AddAuthorState.Designer.cs">
+      <DependentUpon>201608241344547_AddAuthorState.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608241347351_AddAuthorStreet.cs" />
+    <Compile Include="Migrations\201608241347351_AddAuthorStreet.Designer.cs">
+      <DependentUpon>201608241347351_AddAuthorStreet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608241358437_AddAuthorZip.cs" />
+    <Compile Include="Migrations\201608241358437_AddAuthorZip.Designer.cs">
+      <DependentUpon>201608241358437_AddAuthorZip.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
@@ -161,6 +196,30 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608082112251_InitialCreate.resx">
       <DependentUpon>201608082112251_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241315479_AddBookAbstract.resx">
+      <DependentUpon>201608241315479_AddBookAbstract.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241332331_DeleteBookAbstract.resx">
+      <DependentUpon>201608241332331_DeleteBookAbstract.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241334368_AddAuthorAddress.resx">
+      <DependentUpon>201608241334368_AddAuthorAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241336171_AddAuthorCity.resx">
+      <DependentUpon>201608241336171_AddAuthorCity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241342443_AddAuthorCountry.resx">
+      <DependentUpon>201608241342443_AddAuthorCountry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241344547_AddAuthorState.resx">
+      <DependentUpon>201608241344547_AddAuthorState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241347351_AddAuthorStreet.resx">
+      <DependentUpon>201608241347351_AddAuthorStreet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241358437_AddAuthorZip.resx">
+      <DependentUpon>201608241358437_AddAuthorZip.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
