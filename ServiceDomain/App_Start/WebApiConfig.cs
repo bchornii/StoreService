@@ -1,8 +1,12 @@
 ﻿using Newtonsoft.Json.Serialization;
+using ServiceDomain.ExceptionHandler;
 using ServiceDomain.Filters;
 using ServiceDomain.RouteConstraints;
+using System.Net;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Routing;
+using System;
 
 namespace ServiceDomain
 {
@@ -24,8 +28,15 @@ namespace ServiceDomain
             // Web API filters
             config.Filters.Add(new ValidateModelAttribute());
 
-            // Web API routes
+            // Web API global exception handler
+            IExceptionHandlerCustomizer customizer = new ExceptionHandlerCustomizer { DefaultUnhandledStatusCode = HttpStatusCode.InternalServerError };
+            customizer.BindToException<ArgumentException>(HttpStatusCode.Conflict, "ArgumentException handling is not implemented (global exc handler)");
+            config.Services.Replace(typeof(IExceptionHandler), new UnhandledExceptionHandler
+            {
+                Customizer = customizer
+            });
 
+            // Web API routes
             // Convention routing
             // config.Routes.MapHttpRoute(
             //     name: "DefaultApi",

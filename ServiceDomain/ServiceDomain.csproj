@@ -131,6 +131,10 @@
     <Compile Include="DTOs\BookDetailDto.cs" />
     <Compile Include="DTOs\BookDto.cs" />
     <Compile Include="DTOs\POST_BookDto.cs" />
+    <Compile Include="ExceptionHandler\ExceptionHandlerCustomizer.cs" />
+    <Compile Include="ExceptionHandler\UnhandledExceptionHandler.cs" />
+    <Compile Include="ExceptionHandler\UnhandledExceptionResultMessageFactory.cs" />
+    <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Filters\ValidateModelFilter.cs" />
     <Compile Include="HttpActionResultFactory\CustomResult.cs" />
     <Compile Include="Migrations\201608082112251_InitialCreate.cs" />
