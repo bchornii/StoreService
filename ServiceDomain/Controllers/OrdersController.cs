@@ -57,7 +57,7 @@ namespace ServiceDomain.Controllers
         [NotImpExceptionFilter]
         public IHttpActionResult GetExceptionFilter()
         {
-            throw new NotImplementedException("This method is not implementer");
+            throw new NotImplementedException("This method (with exception filter) is not implemented");
         }
 
         [HttpGet]
@@ -65,6 +65,20 @@ namespace ServiceDomain.Controllers
         public HttpResponseMessage GetHttpErrorException()
         {
             return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Order is not found");
+        }
+
+        [HttpGet]
+        [Route("argexception")]
+        public IHttpActionResult GetArgumentException()
+        {
+            throw new ArgumentException();
+        }
+
+        [HttpGet]
+        [Route("exc")]
+        public IHttpActionResult GetExc()
+        {
+            throw new Exception();
         }
     }
 }
