@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 using System.Web.Http.Filters;
 
 namespace ServiceDomain.Filters
@@ -14,7 +16,10 @@ namespace ServiceDomain.Filters
         {
             if(actionExecutedContext.Exception is NotImplementedException)
             {
-                actionExecutedContext.Response = new HttpResponseMessage(System.Net.HttpStatusCode.NotImplemented);
+                //actionExecutedContext.Response = new HttpResponseMessage(System.Net.HttpStatusCode.NotImplemented);
+                actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(HttpStatusCode.NotImplemented,
+                                                                                    "Testing of exception filter",
+                                                                                    actionExecutedContext.Exception);                                  
             }
         }
     }

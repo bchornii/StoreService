@@ -46,7 +46,7 @@ namespace ServiceDomain.Controllers
         {
             throw new HttpResponseException(new HttpResponseMessage
             {
-                StatusCode = System.Net.HttpStatusCode.Conflict,
+                StatusCode = HttpStatusCode.Conflict,
                 Content = new StringContent(string.Format("No product with ID = {0}", -1)),
                 ReasonPhrase = "Because it is a test"
             });
