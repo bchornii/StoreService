@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using ServiceDomain.Filters;
 using System.Net;
 
