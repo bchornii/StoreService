@@ -78,13 +78,5 @@ namespace ServiceDomain.Controllers
         {
             throw new Exception();
         }
-
-        [HttpGet]
-        [Route("exc1")]
-        public IHttpActionResult GetExc1()
-        {
-            throw new Exception();
-        }
-
     }
 }
