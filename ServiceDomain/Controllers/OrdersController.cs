@@ -78,13 +78,5 @@ namespace ServiceDomain.Controllers
         {
             throw new Exception();
         }
-
-        [HttpGet]
-        [Route("getexc")]
-        public IHttpActionResult GetExc12()
-        {
-            throw new Exception();
-        }
-
     }
 }
