@@ -78,5 +78,12 @@ namespace ServiceDomain.Controllers
         {
             throw new Exception();
         }
+
+        [HttpGet]
+        [Route("foo")]
+        public IHttpActionResult GetFoo()
+        {
+            return Ok("foo");
+        }
     }
 }
