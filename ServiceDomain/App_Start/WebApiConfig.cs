@@ -34,15 +34,7 @@ namespace ServiceDomain
             config.Services.Replace(typeof(IExceptionHandler), new UnhandledExceptionHandler
             {
                 Customizer = customizer
-            });
-
-            // Web API routes
-            // Convention routing
-            // config.Routes.MapHttpRoute(
-            //     name: "DefaultApi",
-            //     routeTemplate: "api/{controller}/{id}/{name}",
-            //     defaults: new { id = RouteParameter.Optional }
-            // );            
+            });          
         }
     }
 }
