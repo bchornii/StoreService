@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using ServiceDomain.ExceptionHandler;
+using ServiceDomain.Filters;
+using ServiceDomain.RouteConstraints;
 using System.Net;
 using System.Web.Http;
-using ServiceDomain.Filters;
-using System.Web.Http.Routing;
-using Newtonsoft.Json.Serialization;
-using ServiceDomain.ExceptionHandler;
-using ServiceDomain.RouteConstraints;
 using System.Web.Http.ExceptionHandling;
+using System.Web.Http.Routing;
+using System;
 
 namespace ServiceDomain
 {
