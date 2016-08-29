@@ -137,6 +137,7 @@
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Filters\ValidateModelFilter.cs" />
     <Compile Include="HttpActionResultFactory\CustomResult.cs" />
+    <Compile Include="Logging\UnhandledExceptionLogger.cs" />
     <Compile Include="Migrations\201608082112251_InitialCreate.cs" />
     <Compile Include="Migrations\201608082112251_InitialCreate.Designer.cs">
       <DependentUpon>201608082112251_InitialCreate.cs</DependentUpon>
