@@ -38,7 +38,7 @@ namespace ServiceDomain
             });
 
             // Web API custom tracer
-            config.Services.Replace(typeof(ITraceWriter), new NLogTracer());
+            config.Services.Replace(typeof(System.Web.Http.Tracing.ITraceWriter), new NLogTracer());
         }
     }
 }

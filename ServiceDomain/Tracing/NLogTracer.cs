@@ -1,10 +1,8 @@
 ﻿using NLog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Web;
 using System.Web.Http.Tracing;
 
 namespace ServiceDomain.Tracing
@@ -25,11 +23,11 @@ namespace ServiceDomain.Tracing
                 {TraceLevel.Fatal, _logger.Fatal },
                 {TraceLevel.Warn, _logger.Warn }
             });
-        }             
-        
+        }
+
         public void Trace(HttpRequestMessage request, string category, TraceLevel level, Action<TraceRecord> traceAction)
         {
-            if(level != TraceLevel.Off)
+            if (level != TraceLevel.Off)
             {
                 var record = new TraceRecord(request, category, level);
                 traceAction(record);
@@ -41,36 +39,47 @@ namespace ServiceDomain.Tracing
         {
             var message = new StringBuilder();
 
-            if(record.Request != null)
+            if (record.Request != null)
             {
-                if(record.Request.Method != null)
+                if (record.Request.Method != null)
                 {
-                    message.Append(record.Request.Method);
+                    message.Append(" Method : ").Append(record.Request.Method);
                 }
-                if(record.Request.RequestUri != null)
+                if (record.Request.RequestUri != null)
                 {
-                    message.Append(" ").Append(record.Request.RequestUri);
+                    message.Append(" | Uri : ").Append(record.Request.RequestUri);
                 }
             }
 
             if (!string.IsNullOrEmpty(record.Category))
             {
-                message.Append(" ").Append(record.Category);
+                message.Append(" | Cat : ").Append(record.Category);
             }
+
+            if (true)
+            {
+                message.Append(" | Type : ").Append(record.Kind);
+            }
+
 
             if (!string.IsNullOrEmpty(record.Operator))
             {
-                message.Append(" ").Append(record.Operator);
+                message.Append(" | Operator : ").Append(record.Operator);
+            }
+
+            if (!string.IsNullOrEmpty(record.Operation))
+            {
+                message.Append(" | Operation : ").Append(record.Operation);
             }
 
             if (!string.IsNullOrEmpty(record.Message))
             {
-                message.Append(" ").Append(record.Message);
+                message.Append(" | Msg : ").Append(record.Message);
             }
 
-            if(record.Exception != null && !string.IsNullOrEmpty(record.Exception.GetBaseException().Message))
+            if (record.Exception != null && !string.IsNullOrEmpty(record.Exception.GetBaseException().Message))
             {
-                message.Append(" ").Append(record.Exception.GetBaseException().Message);
+                message.Append(" | ExcMsg : ").Append(record.Exception.GetBaseException().Message);
             }
 
             Logger[record.Level](message.ToString());
