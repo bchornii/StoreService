@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Routing;
 using System;
+using ServiceDomain.Tracing;
 
 namespace ServiceDomain
 {
@@ -34,7 +35,10 @@ namespace ServiceDomain
             config.Services.Replace(typeof(IExceptionHandler), new UnhandledExceptionHandler
             {
                 Customizer = customizer
-            });          
+            });
+
+            // Web API custom tracer
+            config.Services.Replace(typeof(System.Web.Http.Tracing.ITraceWriter), new NLogTracer());
         }
     }
 }
