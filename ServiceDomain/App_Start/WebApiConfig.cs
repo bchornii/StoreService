@@ -8,6 +8,8 @@ using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Routing;
 using System;
 using ServiceDomain.Tracing;
+using System.Web.Http.ValueProviders;
+using ServiceDomain.ValueProvider;
 
 namespace ServiceDomain
 {
@@ -39,6 +41,9 @@ namespace ServiceDomain
 
             // Web API custom tracer
             config.Services.Replace(typeof(System.Web.Http.Tracing.ITraceWriter), new NLogTracer());
+
+            // Web API custom value provider (cookie)
+            config.Services.Add(typeof(ValueProviderFactory), new CookieValueProviderFactory());
         }
     }
 }

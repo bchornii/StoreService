@@ -192,6 +192,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteConstraints\NonZeroConstraint.cs" />
     <Compile Include="Tracing\NLogTracer.cs" />
+    <Compile Include="ValueProvider\CookieValueProvider.cs" />
+    <Compile Include="ValueProvider\CookieValueProviderFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
