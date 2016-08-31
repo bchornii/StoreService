@@ -1,9 +1,10 @@
 ﻿using ServiceDomain.ModelBinders;
-using System.ComponentModel;
+using System.Web.Http.ModelBinding;
 
 namespace ServiceDomain.DTOs
 {
-    [TypeConverter(typeof(BooksTypeConverter))]
+    //[TypeConverter(typeof(BooksTypeConverter))]
+    [ModelBinder(typeof(BooksModelBinder))]
     public class uBookDto
     {
         public int? BookId { get; set; }

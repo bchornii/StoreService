@@ -158,8 +158,8 @@ namespace ServiceDomain.Controllers
         }
 
         [HttpGet]
-        [Route("formBook")]
-        public async Task<IHttpActionResult> GetBooks(uBookDto book)
+        [Route("formBook/{id}/{name}")]
+        public async Task<IHttpActionResult> GetBooks(int id,string name, uBookDto book)
         {            
             return Ok(await Task.FromResult(book.BookId + " : " + book.Title + " : " + book.Genre + " : " + book.AuthorId));
         }

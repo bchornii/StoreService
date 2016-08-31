@@ -180,6 +180,7 @@
       <DependentUpon>201608241358437_AddAuthorZip.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ModelBinders\BooksModelBinder.cs" />
     <Compile Include="ModelBinders\BooksTypeConverter.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
