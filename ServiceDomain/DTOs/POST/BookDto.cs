@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ServiceDomain.DTOs
 {
-    public class POST_BookDto
+    public class pBookDto
     {        
         public int BookId { get; set; }
 
