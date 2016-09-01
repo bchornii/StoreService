@@ -1,4 +1,4 @@
-﻿using ServiceDomain.ModelBinders;
+using ServiceDomain.ModelBinders;
 using System.Web.Http.ModelBinding;
 
 namespace ServiceDomain.DTOs
@@ -15,16 +15,20 @@ namespace ServiceDomain.DTOs
         public static bool TryParse(string s, out uBookDto result)
         {
             result = null;
-            var parts = s.Split(',');
-            if (parts.Length < 1)
+            var parts = new string[4];
+            if (!string.IsNullOrEmpty(s) && s.Split(',').Length <= 4)
+            {
+                s.Split(',').CopyTo(parts, 0);
+            }
+            else
             {
                 return false;
             }
 
-            int bookId = -1;            
-            int authorId = -1;
-            if(int.TryParse(parts[0], out bookId) ||
-               !string.IsNullOrEmpty(parts[1]) || 
+            var bookId = -1;
+            var authorId = -1;
+            if (int.TryParse(parts[0], out bookId) ||
+               !string.IsNullOrEmpty(parts[1]) ||
                !string.IsNullOrEmpty(parts[2]) ||
                int.TryParse(parts[3], out authorId))
             {
