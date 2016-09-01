@@ -10,6 +10,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -159,7 +160,7 @@ namespace ServiceDomain.Controllers
 
         [HttpGet]
         [Route("formBook/{id}/{name}")]
-        public async Task<IHttpActionResult> GetBooks(int id,string name, uBookDto book)
+        public async Task<IHttpActionResult> GetBooks(int id,string name, IPrincipal principal, uBookDto book)
         {            
             return Ok(await Task.FromResult(book.BookId + " : " + book.Title + " : " + book.Genre + " : " + book.AuthorId));
         }
@@ -186,6 +187,13 @@ namespace ServiceDomain.Controllers
                 await contex.SaveChangesAsync();
             }
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("principal")]
+        public async Task<IHttpActionResult> GetPrincipal(IPrincipal principal)
+        {
+            return Ok(await Task.FromResult<string>(string.Format("Name = {0}", principal.Identity.Name)));
         }
     }
 }
