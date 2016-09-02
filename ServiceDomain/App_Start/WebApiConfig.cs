@@ -10,6 +10,9 @@ using System;
 using ServiceDomain.Tracing;
 using System.Web.Http.ValueProviders;
 using ServiceDomain.ValueProvider;
+using System.Security.Principal;
+using ServiceDomain.ParameterBinders;
+using ServiceDomain.DTOs;
 
 namespace ServiceDomain
 {
@@ -44,6 +47,11 @@ namespace ServiceDomain
 
             // Web API custom value provider (cookie)
             config.Services.Add(typeof(ValueProviderFactory), new CookieValueProviderFactory());
+
+            // Web API custom HttpParameterBindings
+            config.ParameterBindingRules.Add(typeof(uBookDto), param => new BookParamaterBinding(param));
+            config.ParameterBindingRules.Add(typeof(IPrincipal), param => new PrincipalParameterBinding(param));
+            
         }
     }
 }
