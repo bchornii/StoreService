@@ -78,5 +78,15 @@ namespace ServiceDomain.Controllers
         {
             throw new Exception();
         }
+
+        [HttpGet]
+        [Route("innerexc")]
+        public IHttpActionResult GetInnerExc()
+        {
+            throw new Exception("external exception", 
+                new Exception("inner exception", 
+                    new Exception("inner inner exception", 
+                        new Exception("inner inner inner exc"))));
+        }
     }
 }
