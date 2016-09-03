@@ -13,6 +13,7 @@ using ServiceDomain.ValueProvider;
 using System.Security.Principal;
 using ServiceDomain.ParameterBinders;
 using ServiceDomain.DTOs;
+using ServiceDomain.Logging;
 
 namespace ServiceDomain
 {
@@ -41,6 +42,9 @@ namespace ServiceDomain
             {
                 Customizer = customizer
             });
+
+            // Web API global exception logger
+            config.Services.Replace(typeof(IExceptionLogger), new UnhandledExceptionLogger());
 
             // Web API custom tracer
             config.Services.Replace(typeof(System.Web.Http.Tracing.ITraceWriter), new NLogTracer());
