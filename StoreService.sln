@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDomain", "ServiceDom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreService.Tests", "StoreService.Tests\StoreService.Tests.csproj", "{D30B267A-C084-4904-B2BB-A53F342F7440}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRepository", "ServiceRepository\ServiceRepository.csproj", "{B89DC15B-CD77-48B6-BD6E-52EB00E73C48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D30B267A-C084-4904-B2BB-A53F342F7440}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D30B267A-C084-4904-B2BB-A53F342F7440}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D30B267A-C084-4904-B2BB-A53F342F7440}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B89DC15B-CD77-48B6-BD6E-52EB00E73C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B89DC15B-CD77-48B6-BD6E-52EB00E73C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B89DC15B-CD77-48B6-BD6E-52EB00E73C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B89DC15B-CD77-48B6-BD6E-52EB00E73C48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
