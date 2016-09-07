@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B89DC15B-CD77-48B6-BD6E-52EB00E73C48}</ProjectGuid>
+    <ProjectGuid>{261DDB6B-FDE6-46D1-BBE3-52EADA693A93}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServiceRepository</RootNamespace>
-    <AssemblyName>ServiceRepository</AssemblyName>
+    <RootNamespace>DataAccessModels</RootNamespace>
+    <AssemblyName>DataAccessModels</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,14 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -49,30 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\BookRepository.cs" />
-    <Compile Include="Repositories\OrderRepository.cs" />
+    <Compile Include="Models\Author.cs" />
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="UoW\StoreServiceUnitOfWork.cs" />
-    <Compile Include="UoW\UnitOfWorkFactory.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataAccessModels\DataAccessModels.csproj">
-      <Project>{261ddb6b-fde6-46d1-bbe3-52eada693a93}</Project>
-      <Name>DataAccessModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataDomainModels\DataDomainModels.csproj">
-      <Project>{449b5a5f-ebfb-4973-b29e-84e5a30c6b1d}</Project>
-      <Name>DataDomainModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ServiceDataAccess\ServiceDataAccess.csproj">
-      <Project>{205ed39e-7959-4383-824c-aaaecb1d1749}</Project>
-      <Name>ServiceDataAccess</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

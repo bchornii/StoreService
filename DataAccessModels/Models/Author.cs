@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ServiceDomain.Models
+namespace DataAccess.Models
 {
     public class Author
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ServiceDomain.Models
+namespace DataAccess.Models
 {
     public class Order
     {

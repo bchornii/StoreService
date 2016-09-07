@@ -1,13 +1,10 @@
-﻿using ServiceDomain.Context;
+﻿using DataDomainModels;
 using ServiceDomain.DTOs;
 using ServiceDomain.Filters;
 using ServiceDomain.HttpActionResultFactory;
-using ServiceDomain.Models;
+using ServiceRepository;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Security.Principal;
@@ -19,54 +16,49 @@ namespace ServiceDomain.Controllers
     [RoutePrefix("api/books")]
     public class BooksController : ApiController
     {
-        IDbContextFactory _factory;
+        IUnitOfWorkFactory _unitOfWork;
         public BooksController()
         {
-            _factory = new DbContextFactory();
+            _unitOfWork = new UnitOfWorkFactory();
         }
-
-        private static readonly Expression<Func<Book, gBookDto>> AsBookDto = x => new gBookDto
-        {
-            Title = x.Title,
-            Author = x.Author.Name,
-            Genre = x.Genre
-        };
 
         [HttpGet]
         [Route("all")]
-        public IEnumerable<gBookDto> GetBooks()
+        public async Task<IHttpActionResult> GetBooks()
         {
-            using(var context = _factory.CreateContext())
+            using (var uow = _unitOfWork.CreateEfUnitOfWork())
             {
-                return context.Authors
-                              .Join(context.Books,
-                                    a => a.AuthorId,
-                                    b => b.AuthorId,
-                                    (a, b) => new gBookDto
-                                    {
-                                        Author = a.Name,
-                                        Genre = b.Genre,
-                                        Title = b.Title                                                                              
-                                    }).ToList();                                                                                               
+                var books_dms = await uow.Books.GetBooks();
+                if(books_dms == null)
+                {
+                    return NotFound();
+                }
+                return Ok(books_dms.Select(dm => new gBookDto
+                {
+                    Author = dm.Author,
+                    Genre = dm.Genre,
+                    Title = dm.Title
+                }).ToList());
             }
         }
 
         [HttpGet]
         [Route("{id:int}")]
         public async Task<IHttpActionResult> GetBook(int id)
-        {
-            using (var context = _factory.CreateContext())
+        {           
+            using(var uow = _unitOfWork.CreateEfUnitOfWork())
             {
-                gBookDto book = await context.Books.Include(b => b.Author)
-                    .Where(b => b.BookId == id)
-                    .Select(AsBookDto)
-                    .FirstOrDefaultAsync();
-                if (book == null)
+                var book_dm = await uow.Books.GetBook(id);
+                if(book_dm == null)
                 {
                     return NotFound();
                 }
-
-                return Ok(book);
+                return Ok(new gBookDto
+                {
+                    Author = book_dm.Author,
+                    Genre = book_dm.Genre,
+                    Title = book_dm.Title
+                });
             }
         }
 
@@ -74,87 +66,91 @@ namespace ServiceDomain.Controllers
         [Route("neg/{id:int}")]
         public async Task<IHttpActionResult> GetBookNegotiation(int id)
         {
-            using(var context = _factory.CreateContext())
+            using (var uow = _unitOfWork.CreateEfUnitOfWork())
             {
-                var book = await context.Books.Include(b => b.Author)
-                                        .Where(b => b.BookId == id)
-                                        .Select(AsBookDto)
-                                        .FirstOrDefaultAsync();                                              
-
-                if (book == null)
+                var book_dm = await uow.Books.GetBook(id);
+                if(book_dm == null)
                 {
                     return NotFound();
                 }
-                return new CustomResult<gBookDto>(this, book);
+                return new CustomResult<gBookDto>(this, new gBookDto
+                {
+                    Author = book_dm.Author,
+                    Genre = book_dm.Genre,
+                    Title = book_dm.Title
+                });
             }
         }
 
         [Route("{id:int}/details")]
         public async Task<IHttpActionResult> GetBookDetail(int id)
         {
-            using(var context = _factory.CreateContext())
+            using(var uow = _unitOfWork.CreateEfUnitOfWork())
             {
-                var book = await context.Books
-                                        .Where(b => b.AuthorId == id)
-                                        .Select(b => new gBookDetailDto
-                                        {
-                                            Title = b.Title,
-                                            Description = b.Description,
-                                            Genre = b.Genre,
-                                            Price = b.Price,
-                                            PublishDate = b.PublishDate,
-                                            Author = b.Author.Name
-                                        }).ToListAsync();
-
-                if (book == null)
+                var bookDetail_dm = await uow.Books.GetBookDetails(id);
+                if(bookDetail_dm == null)
                 {
                     return NotFound();
                 }
-                return Ok(book);
+                return Ok(bookDetail_dm.Select(dm => new gBookDetailDto
+                {
+                    Title = dm.Title,
+                    Description = dm.Description,
+                    Genre = dm.Genre,
+                    Price = dm.Price,
+                    PublishDate = dm.PublishDate,
+                    Author = dm.Author
+                }));
             }
         }
 
         [Route("{genre}")]
-        public IEnumerable<gBookDto> GetBooksByGenre(string genre)
+        public async Task<IHttpActionResult> GetBooksByGenre(string genre)
         {
-            using(var context = _factory.CreateContext())
+            using(var uow = _unitOfWork.CreateEfUnitOfWork())
             {
-                return context.Books
-                              .Where(b => b.Genre.Equals(genre,StringComparison.OrdinalIgnoreCase))
-                              .Select(b => new gBookDto
-                              {
-                                  Author = b.Author.Name,
-                                  Genre = b.Genre,
-                                  Title = b.Title
-                              }).ToList();
+                var books_dm = await uow.Books.GetBooksByGenre(genre);
+                if(books_dm == null)
+                {
+                    return NotFound();
+                }
+                return Ok(books_dm.Select(dm => new gBookDto
+                {
+                    Author = dm.Author,
+                    Genre = dm.Genre,
+                    Title = dm.Title
+                }).ToList());
             }
         }
 
         [Route("authors/{authorId}/books")]
         public HttpResponseMessage GetBooksByAuthor(int authorId)
         {
-            using(var context = _factory.CreateContext())
+            using (var uow = _unitOfWork.CreateEfUnitOfWork())
             {
-                var books = context.Books
-                              .Where(b => b.AuthorId == authorId)
-                              .Select(AsBookDto)
-                              .ToList();
-                return Request.CreateResponse(HttpStatusCode.OK, books);
-            }
+                var books_dm = Task.Run(() => uow.Books.GetBooksByAuthor(authorId)).Result;
+                return Request.CreateResponse(HttpStatusCode.OK, books_dm.Select(dm => new gBookDto
+                {
+                    Author = dm.Author,
+                    Title = dm.Title,
+                    Genre = dm.Genre
+                }).ToList());
+            }               
         }
 
         [Route("date/{pubdate:datetime:regex(\\d{4}-\\d{2}-\\d{2})}")]
         [Route("date/{*pubdate:datetime:regex(\\d{4}/\\d{2}/\\d{2})}")]
-        public HttpResponseMessage GetBooks(DateTime pubdate)
+        public async Task<HttpResponseMessage> GetBooks(DateTime pubdate)
         {
-            using (var context = _factory.CreateContext())
+            using(var uow = _unitOfWork.CreateEfUnitOfWork())
             {
-                var books = context.Books
-                              .Where(b => DbFunctions.TruncateTime(b.PublishDate) ==
-                                          DbFunctions.TruncateTime(pubdate))
-                              .Select(AsBookDto)
-                              .ToList();
-                return Request.CreateResponse(HttpStatusCode.OK, books);
+                var books_dm = await uow.Books.GetBooksByDate(pubdate);
+                return Request.CreateResponse(HttpStatusCode.OK, books_dm.Select(dm => new gBookDto
+                {
+                    Author = dm.Author,
+                    Genre = dm.Genre,
+                    Title = dm.Title
+                }).ToList());
             }
         }
 
@@ -170,21 +166,19 @@ namespace ServiceDomain.Controllers
         [ValidateModel]
         public async Task<IHttpActionResult> UpsertBook([FromBody] pBookDto book)
         {
-            using(var contex = _factory.CreateContext())
+            using(var uow = _unitOfWork.CreateEfUnitOfWork())
             {
-                var b = new Book
+                uow.Books.UpsertBook(new pBookDm
                 {
                     BookId = book.BookId,
-                    Title = book.Title,
-                    Price = book.Price.Value,
-                    Genre = book.Genre,
-                    PublishDate = book.PublishDate.Value,
+                    AuthorId = book.AuthorId,
                     Description = book.Description,
-                    AuthorId = book.AuthorId.Value
-                };
-                contex.Entry(b).State = (b.BookId != 0) ? 
-                    EntityState.Modified : EntityState.Added;
-                await contex.SaveChangesAsync();
+                    Genre = book.Genre,
+                    Price = book.Price,
+                    PublishDate = book.PublishDate,
+                    Title = book.Title                    
+                });
+                await uow.Complete();
             }
             return Ok();
         }

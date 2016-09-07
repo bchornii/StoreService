@@ -1,11 +1,11 @@
-﻿using ServiceDomain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Net.Http;
 using ServiceDomain.Filters;
 using System.Net;
+using DataAccess.Models;
 
 namespace ServiceDomain.Controllers
 {
