@@ -41,9 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GET\BookDetailDto.cs" />
-    <Compile Include="GET\BookDto.cs" />
-    <Compile Include="POST\BookDto.cs" />
+    <Compile Include="GET\BookDetailDm.cs" />
+    <Compile Include="GET\BookDm.cs" />
+    <Compile Include="POST\BookDm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
