@@ -136,10 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Context\BookDbInitializer.cs" />
-    <Compile Include="Context\ContextFactory.cs" />
     <Compile Include="Controllers\BooksController.cs" />
-    <Compile Include="Context\BooksContext.cs" />
     <Compile Include="DTOs\GET\BookDetailDto.cs" />
     <Compile Include="DTOs\GET\BookDto.cs" />
     <Compile Include="DTOs\POST\BookDto.cs" />
@@ -151,52 +148,12 @@
     <Compile Include="Filters\ValidateModelFilter.cs" />
     <Compile Include="HttpActionResultFactory\CustomResult.cs" />
     <Compile Include="Logging\UnhandledExceptionLogger.cs" />
-    <Compile Include="Migrations\201608082112251_InitialCreate.cs" />
-    <Compile Include="Migrations\201608082112251_InitialCreate.Designer.cs">
-      <DependentUpon>201608082112251_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608241315479_AddBookAbstract.cs" />
-    <Compile Include="Migrations\201608241315479_AddBookAbstract.Designer.cs">
-      <DependentUpon>201608241315479_AddBookAbstract.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608241332331_DeleteBookAbstract.cs" />
-    <Compile Include="Migrations\201608241332331_DeleteBookAbstract.Designer.cs">
-      <DependentUpon>201608241332331_DeleteBookAbstract.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608241334368_AddAuthorAddress.cs" />
-    <Compile Include="Migrations\201608241334368_AddAuthorAddress.Designer.cs">
-      <DependentUpon>201608241334368_AddAuthorAddress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608241336171_AddAuthorCity.cs" />
-    <Compile Include="Migrations\201608241336171_AddAuthorCity.Designer.cs">
-      <DependentUpon>201608241336171_AddAuthorCity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608241342443_AddAuthorCountry.cs" />
-    <Compile Include="Migrations\201608241342443_AddAuthorCountry.Designer.cs">
-      <DependentUpon>201608241342443_AddAuthorCountry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608241344547_AddAuthorState.cs" />
-    <Compile Include="Migrations\201608241344547_AddAuthorState.Designer.cs">
-      <DependentUpon>201608241344547_AddAuthorState.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608241347351_AddAuthorStreet.cs" />
-    <Compile Include="Migrations\201608241347351_AddAuthorStreet.Designer.cs">
-      <DependentUpon>201608241347351_AddAuthorStreet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608241358437_AddAuthorZip.cs" />
-    <Compile Include="Migrations\201608241358437_AddAuthorZip.Designer.cs">
-      <DependentUpon>201608241358437_AddAuthorZip.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelBinders\BooksModelBinder.cs" />
     <Compile Include="ModelBinders\BooksTypeConverter.cs" />
-    <Compile Include="Models\Author.cs" />
-    <Compile Include="Models\Book.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Order.cs" />
     <Compile Include="ParameterBinders\BookParamaterBinding.cs" />
     <Compile Include="ParameterBinders\PrincipalParameterBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -229,33 +186,18 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608082112251_InitialCreate.resx">
-      <DependentUpon>201608082112251_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608241315479_AddBookAbstract.resx">
-      <DependentUpon>201608241315479_AddBookAbstract.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608241332331_DeleteBookAbstract.resx">
-      <DependentUpon>201608241332331_DeleteBookAbstract.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608241334368_AddAuthorAddress.resx">
-      <DependentUpon>201608241334368_AddAuthorAddress.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608241336171_AddAuthorCity.resx">
-      <DependentUpon>201608241336171_AddAuthorCity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608241342443_AddAuthorCountry.resx">
-      <DependentUpon>201608241342443_AddAuthorCountry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608241344547_AddAuthorState.resx">
-      <DependentUpon>201608241344547_AddAuthorState.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608241347351_AddAuthorStreet.resx">
-      <DependentUpon>201608241347351_AddAuthorStreet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608241358437_AddAuthorZip.resx">
-      <DependentUpon>201608241358437_AddAuthorZip.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\DataAccessModels\DataAccessModels.csproj">
+      <Project>{261ddb6b-fde6-46d1-bbe3-52eada693a93}</Project>
+      <Name>DataAccessModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataDomainModels\DataDomainModels.csproj">
+      <Project>{449b5a5f-ebfb-4973-b29e-84e5a30c6b1d}</Project>
+      <Name>DataDomainModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceRepository\ServiceRepository.csproj">
+      <Project>{b89dc15b-cd77-48b6-bd6e-52eb00e73c48}</Project>
+      <Name>ServiceRepository</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

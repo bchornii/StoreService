@@ -1,4 +1,4 @@
-namespace ServiceDomain.Migrations
+namespace ServiceDataAccess
 {
     using System;
     using System.Data.Entity.Migrations;

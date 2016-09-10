@@ -1,10 +1,10 @@
-namespace ServiceDomain.Migrations
+namespace ServiceDataAccess
 {
-    using Models;
-    using System;    
-    using System.Data.Entity.Migrations;    
+    using DataAccess.Models;
+    using System;
+    using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ServiceDomain.Context.BooksContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<StoreServiceContext>
     {
         public Configuration()
         {
@@ -12,7 +12,7 @@ namespace ServiceDomain.Migrations
             ContextKey = "ServiceDomain.Context.BooksContext";
         }
 
-        protected override void Seed(ServiceDomain.Context.BooksContext context)
+        protected override void Seed(StoreServiceContext context)
         {
             //  This method will be called after migrating to the latest version.
 
